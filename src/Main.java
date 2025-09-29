@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== SISTEMA DE GESTIÓN DE TAREAS ===");
         System.out.println("Bienvenido al sistema de gestión de tareas");
-        System.out.println("Las tareas se guardan automáticamente en formato JSON");
+        System.out.println("Las tareas se guardan automáticamente en formato txt");
         System.out.println("=====================================\n");
         
         AppTareas app = new AppTareas();

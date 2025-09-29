@@ -12,11 +12,7 @@ import java.util.List;
 public class GestorPersistencia {
     private static final String ARCHIVO_TAREAS = "tareas.txt";
 
-    /**
-     * Guarda la lista de tareas en un archivo de texto
-     * @param tareas Lista de tareas a guardar
-     * @throws PersistenciaException Si ocurre un error al escribir el archivo
-     */
+    //Guarda la lista de tareas en un archivo de texto
     public void guardarTareas(List<Tarea> tareas) throws PersistenciaException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_TAREAS))) {
             for (Tarea tarea : tareas) {
@@ -31,11 +27,7 @@ public class GestorPersistencia {
         }
     }
 
-    /**
-     * Carga la lista de tareas desde un archivo de texto
-     * @return Lista de tareas cargadas
-     * @throws PersistenciaException Si ocurre un error al leer el archivo
-     */
+    //Carga la lista de tareas desde un archivo de texto
     public List<Tarea> cargarTareas() throws PersistenciaException {
         File archivo = new File(ARCHIVO_TAREAS);
         List<Tarea> tareas = new ArrayList<>();
@@ -67,10 +59,7 @@ public class GestorPersistencia {
         return tareas;
     }
 
-    /**
-     * Verifica si existe el archivo de persistencia
-     * @return true si el archivo existe, false en caso contrario
-     */
+    //Verifica si existe el archivo de persistencia
     public boolean existeArchivo() {
         return new File(ARCHIVO_TAREAS).exists();
     }

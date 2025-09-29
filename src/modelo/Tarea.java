@@ -67,16 +67,12 @@ public class Tarea {
         this.fechaCompletada = fechaCompletada;
     }
 
-    /**
-     * Obtiene la fecha de creación formateada
-     */
+    //Obtiene la fecha de creación formateada
     public String getFechaCreacionFormateada() {
         return fechaCreacion.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
-    /**
-     * Obtiene la fecha de completado formateada
-     */
+    //Obtiene la fecha de completado formateada
     public String getFechaCompletadaFormateada() {
         return fechaCompletada != null ? 
             fechaCompletada.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : 

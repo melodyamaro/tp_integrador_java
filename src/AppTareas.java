@@ -34,16 +34,16 @@ public class AppTareas {
 
                 switch (opcion) {
                     case 1:
-                        crearTarea();
+                        agregarTarea();
                         break;
                     case 2:
-                        eliminarTarea();
+                        mostrarTodasLasTareas();
                         break;
                     case 3:
-                        marcarTareaCompletada();
+                        eliminarTarea();
                         break;
                     case 4:
-                        mostrarTodasLasTareas();
+                        marcarTareaCompletada();
                         break;
                     case 5:
                         mostrarTareasCompletadas();
@@ -52,7 +52,7 @@ public class AppTareas {
                         mostrarTareasPendientes();
                         break;
                     case 7:
-                        System.out.println("Saliendo del programa...");
+                        System.out.println("Saliendo del programa");
                         guardarTareasEnArchivo();
                         break;
                 }
@@ -73,17 +73,17 @@ public class AppTareas {
 
     private void mostrarMenu() {
         System.out.println("\n=== MENÚ DE TAREAS ===");
-        System.out.println("1. Crear tarea");
-        System.out.println("2. Eliminar tarea");
-        System.out.println("3. Marcar tarea como completada");
-        System.out.println("4. Mostrar todas las tareas");
+        System.out.println("1. Agregar tarea");
+        System.out.println("2. Mostrar todas las tareas");
+        System.out.println("3. Eliminar tarea");
+        System.out.println("4. Marcar tarea como completada");
         System.out.println("5. Mostrar tareas completadas");
         System.out.println("6. Mostrar tareas pendientes");
         System.out.println("7. Salir");
         System.out.print("Ingrese una opción: ");
     }
 
-    private void crearTarea() throws ValidacionException {
+    private void agregarTarea() throws ValidacionException {
         System.out.println("\n=== CREAR NUEVA TAREA ===");
         System.out.print("Ingrese la descripción de la tarea: ");
         String descripcion = sc.nextLine();

@@ -7,38 +7,25 @@ import excepciones.ValidacionException;
  */
 public class ValidadorEntradas {
     
-    /**
-     * Valida que un ID sea válido (mayor que 0)
-     * @param id ID a validar
-     * @throws ValidacionException Si el ID no es válido
-     */
+    //Valida que un ID sea válido (mayor que 0)
     public static void validarId(int id) throws ValidacionException {
         if (id <= 0) {
             throw new ValidacionException("El ID debe ser un número positivo mayor que 0");
         }
     }
     
-    /**
-     * Valida que una descripción no esté vacía o sea nula
-     * @param descripcion Descripción a validar
-     * @throws ValidacionException Si la descripción no es válida
-     */
+    //Valida que una descripción no esté vacía o sea nula
     public static void validarDescripcion(String descripcion) throws ValidacionException {
         if (descripcion == null || descripcion.trim().isEmpty()) {
             throw new ValidacionException("La descripción no puede estar vacía");
         }
         
-        if (descripcion.length() > 200) {
-            throw new ValidacionException("La descripción no puede tener más de 200 caracteres");
+        if (descripcion.length() > 150) {
+            throw new ValidacionException("La descripción no puede tener más de 150 caracteres");
         }
     }
     
-    /**
-     * Valida que una opción del menú sea válida
-     * @param opcion Opción a validar
-     * @param opcionesValidas Array de opciones válidas
-     * @throws ValidacionException Si la opción no es válida
-     */
+    //Valida que una opción del menú sea válida
     public static void validarOpcionMenu(int opcion, int[] opcionesValidas) throws ValidacionException {
         boolean esValida = false;
         for (int opcionValida : opcionesValidas) {
@@ -54,12 +41,7 @@ public class ValidadorEntradas {
         }
     }
     
-    /**
-     * Valida que una cadena represente un número entero válido
-     * @param entrada Cadena a validar
-     * @return El número entero parseado
-     * @throws ValidacionException Si la entrada no es un número válido
-     */
+    //Valida que una cadena represente un número entero válido
     public static int validarYParsearEntero(String entrada) throws ValidacionException {
         try {
             return Integer.parseInt(entrada.trim());
