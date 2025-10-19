@@ -21,6 +21,17 @@ public class AppTareas {
         cargarTareasDesdeArchivo();
     }
 
+    // Constructor para testing que permite inyectar dependencias y controlar si cargar automáticamente
+    public AppTareas(GestorPersistencia gestorPersistencia, boolean cargarAutomaticamente) {
+        this.sc = new Scanner(System.in);
+        this.tareas = new ArrayList<>();
+        this.gestorPersistencia = gestorPersistencia;
+        this.siguienteId = 1;
+        if (cargarAutomaticamente) {
+            cargarTareasDesdeArchivo();
+        }
+    }
+
     public void iniciar() {
         int opcion = 0;
         int[] opcionesValidas = {1, 2, 3, 4, 5, 6, 7};
@@ -71,7 +82,7 @@ public class AppTareas {
         sc.close();
     }
 
-    private void mostrarMenu() {
+    public void mostrarMenu() {
         System.out.println("\n=== MENÚ DE TAREAS ===");
         System.out.println("1. Agregar tarea");
         System.out.println("2. Mostrar todas las tareas");
@@ -83,20 +94,26 @@ public class AppTareas {
         System.out.print("Ingrese una opción: ");
     }
 
-    private void agregarTarea() throws ValidacionException {
+    public void agregarTarea() throws ValidacionException {
         System.out.println("\n=== CREAR NUEVA TAREA ===");
         System.out.print("Ingrese la descripción de la tarea: ");
         String descripcion = sc.nextLine();
         
+        agregarTareaConDescripcion(descripcion);
+    }
+
+
+    public Tarea agregarTareaConDescripcion(String descripcion) throws ValidacionException {
         ValidadorEntradas.validarDescripcion(descripcion);
         
         Tarea nuevaTarea = new Tarea(siguienteId++, descripcion, false);
         tareas.add(nuevaTarea);
         
         System.out.println("✓ Tarea creada exitosamente con ID: " + nuevaTarea.getId());
+        return nuevaTarea;
     }
 
-    private void eliminarTarea() throws ValidacionException, TareaNoEncontradaException {
+    public void eliminarTarea() throws ValidacionException, TareaNoEncontradaException {
         System.out.println("\n=== ELIMINAR TAREA ===");
         mostrarTodasLasTareas();
         
@@ -119,7 +136,7 @@ public class AppTareas {
         System.out.println("✓ Tarea eliminada exitosamente: " + tareaAEliminar.getDescripcion());
     }
 
-    private void marcarTareaCompletada() throws ValidacionException, TareaNoEncontradaException {
+    public void marcarTareaCompletada() throws ValidacionException, TareaNoEncontradaException {
         System.out.println("\n=== MARCAR TAREA COMO COMPLETADA ===");
         mostrarTareasPendientes();
         
@@ -150,7 +167,7 @@ public class AppTareas {
         OperacionesTareas.MARCAR_COMPLETADA.accept(tarea);
     }
 
-    private void mostrarTodasLasTareas() {
+    public void mostrarTodasLasTareas() {
         System.out.println("\n=== TODAS LAS TAREAS ===");
         if (tareas.isEmpty()) {
             System.out.println("No hay tareas registradas.");
@@ -160,7 +177,7 @@ public class AppTareas {
         tareas.forEach(OperacionesTareas.IMPRIMIR_TAREA);
     }
 
-    private void mostrarTareasCompletadas() {
+    public void mostrarTareasCompletadas() {
         System.out.println("\n=== TAREAS COMPLETADAS ===");
         List<Tarea> tareasCompletadas = tareas.stream()
                 .filter(OperacionesTareas.TAREA_COMPLETADA)
@@ -174,7 +191,7 @@ public class AppTareas {
         tareasCompletadas.forEach(OperacionesTareas.IMPRIMIR_TAREA);
     }
 
-    private void mostrarTareasPendientes() {
+    public void mostrarTareasPendientes() {
         System.out.println("\n=== TAREAS PENDIENTES ===");
         List<Tarea> tareasPendientes = tareas.stream()
                 .filter(OperacionesTareas.TAREA_PENDIENTE)
@@ -188,14 +205,14 @@ public class AppTareas {
         tareasPendientes.forEach(OperacionesTareas.IMPRIMIR_TAREA);
     }
 
-    private Tarea buscarTareaPorId(int id) {
+    public Tarea buscarTareaPorId(int id) {
         return tareas.stream()
                 .filter(OperacionesTareas.filtrarPorId(id))
                 .findFirst()
                 .orElse(null);
     }
 
-    private void cargarTareasDesdeArchivo() {
+    public void cargarTareasDesdeArchivo() {
         try {
             List<Tarea> tareasCargadas = gestorPersistencia.cargarTareas();
             tareas.addAll(tareasCargadas);
@@ -217,12 +234,29 @@ public class AppTareas {
         }
     }
 
-    private void guardarTareasEnArchivo() {
+    public void guardarTareasEnArchivo() {
         try {
             gestorPersistencia.guardarTareas(tareas);
             System.out.println("✓ Tareas guardadas exitosamente en el archivo.");
         } catch (PersistenciaException e) {
             System.out.println("Error al guardar las tareas: " + e.getMessage());
         }
+    }
+
+   
+    public List<Tarea> getTareas() {
+        return tareas;
+    }
+
+    public GestorPersistencia getGestorPersistencia() {
+        return gestorPersistencia;
+    }
+
+    public int getSiguienteId() {
+        return siguienteId;
+    }
+
+    public void setSiguienteId(int siguienteId) {
+        this.siguienteId = siguienteId;
     }
 }
