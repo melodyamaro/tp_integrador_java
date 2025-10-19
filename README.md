@@ -1,16 +1,18 @@
-# Sistema de Gestión de Tareas
+# 📋 Sistema de Gestión de Tareas
 
-Un sistema completo de gestión de tareas desarrollado en Java que implementa persistencia de datos, validación de entradas, interfaces funcionales y manejo robusto de excepciones.
+Un sistema completo de gestión de tareas desarrollado en **Java 11** que implementa persistencia de datos, validación de entradas, interfaces funcionales y manejo robusto de excepciones. Este proyecto integrador demuestra el uso de conceptos avanzados de Java incluyendo Streams API, interfaces funcionales, manejo de excepciones personalizadas y arquitectura modular.
 
-##  Características
+## ✨ Características Principales
 
-- **CRUD completo**: Crear, leer, actualizar y eliminar tareas
-- **Persistencia de datos**: Guardado automático en archivo de texto
-- **Validación robusta**: Validación de entradas con excepciones personalizadas
-- **Interfaces funcionales**: Uso de Predicate, Consumer y Function
-- **Manejo de errores**: Excepciones personalizadas y manejo de errores
-- **Fechas automáticas**: Registro de fechas de creación y completado
-- **Interfaz de consola**: Menú interactivo fácil de usar
+- **🔧 CRUD completo**: Crear, leer, actualizar y eliminar tareas
+- **💾 Persistencia automática**: Guardado automático en archivo de texto
+- **✅ Validación robusta**: Validación de entradas con excepciones personalizadas
+- **🎯 Interfaces funcionales**: Uso extensivo de Predicate, Consumer y Function
+- **⚠️ Manejo de errores**: Sistema completo de excepciones personalizadas
+- **📅 Fechas automáticas**: Registro de fechas de creación y completado
+- **🖥️ Interfaz de consola**: Menú interactivo intuitivo y fácil de usar
+- **🧪 Testing**: Suite completa de pruebas unitarias con JUnit 5 y Mockito
+- **📦 Maven**: Gestión de dependencias y construcción del proyecto
 
 ## Funcionalidades
 
@@ -52,41 +54,68 @@ src/
 └── Main.java                      # Punto de entrada
 ```
 
-## Tecnologías Utilizadas
+## 🛠️ Tecnologías y Dependencias
 
-- **Java 11+**
+### Tecnologías Principales
+- **Java 11** - Lenguaje de programación
+- **Maven** - Gestión de dependencias y construcción
+- **JUnit 5** - Framework de testing
+- **Mockito** - Framework de mocking para pruebas
+
+### Características de Java Utilizadas
 - **Interfaces funcionales**: Predicate, Consumer, Function
 - **Streams API**: Para filtrado y procesamiento de datos
+- **LocalDateTime**: Manejo de fechas y horas
 - **Manejo de archivos**: I/O para persistencia
 - **Excepciones personalizadas**: Manejo robusto de errores
+- **Lambdas**: Expresiones lambda para código más limpio
 
-## Instalación y Ejecución
+## 🚀 Instalación y Ejecución
 
-### Requisitos
-- Java 11 o superior
+### Requisitos del Sistema
+- **Java 11** o superior
+- **Maven 3.6+** (recomendado)
 - Terminal/Consola
 
-### Pasos para ejecutar
+### Opción 1: Ejecución con Maven (Recomendado)
 
-1. **Clonar o descargar el proyecto**
+1. **Clonar el repositorio**
 ```bash
 git clone <url-del-repositorio>
-cd "Tp integrador"
+cd tp_integrador_java
 ```
 
 2. **Compilar el proyecto**
 ```bash
-javac -d out/production/Tp\ integrador -cp src src/*.java src/*/*.java src/*/*/*.java
+mvn clean compile
 ```
 
 3. **Ejecutar la aplicación**
 ```bash
-java -cp out/production/Tp\ integrador Main
+mvn exec:java -Dexec.mainClass="Main"
 ```
 
-### Ejecución con Gradle (opcional)
+4. **Ejecutar las pruebas**
 ```bash
-./gradlew run
+mvn test
+```
+
+### Opción 2: Compilación Manual
+
+1. **Compilar el proyecto**
+```bash
+javac -d target/classes -cp src src/main/java/*.java src/main/java/*/*.java src/main/java/*/*/*.java
+```
+
+2. **Ejecutar la aplicación**
+```bash
+java -cp target/classes Main
+```
+
+### Opción 3: Ejecutar JAR (después de compilar con Maven)
+```bash
+mvn clean package
+java -jar target/tp-integrador-java-1.0.0.jar
 ```
 
 ## Formato de Persistencia
@@ -168,19 +197,43 @@ Tarea 'Estudiar para el examen' marcada como completada
 [2] ○ Pendiente - Hacer ejercicio
 ```
 
-##  Casos de Prueba
+## 🧪 Testing y Calidad del Código
 
-### Validaciones
--  Descripción vacía → Error de validación
--  ID negativo → Error de validación
--  ID inexistente → Tarea no encontrada
--  Opción de menú inválida → Error de validación
+### Suite de Pruebas
+El proyecto incluye una suite completa de pruebas unitarias que cubre:
 
-### Persistencia
--  Carga automática al iniciar
--  Guardado automático al salir
--  Manejo de archivos corruptos
--  Archivo inexistente (crea lista vacía)
+#### Pruebas de Validación
+- ✅ Descripción vacía → Error de validación
+- ✅ ID negativo → Error de validación  
+- ✅ ID inexistente → Tarea no encontrada
+- ✅ Opción de menú inválida → Error de validación
+- ✅ Descripción muy larga (>150 caracteres) → Error de validación
+- ✅ Descripción solo espacios → Error de validación
+
+#### Pruebas de Funcionalidad
+- ✅ Creación de tareas con descripción válida
+- ✅ Generación automática de IDs únicos
+- ✅ Fechas de creación automáticas
+- ✅ Estado inicial de tareas (pendientes)
+- ✅ Manejo de fechas de completado
+
+#### Pruebas de Persistencia
+- ✅ Carga automática al iniciar
+- ✅ Guardado automático al salir
+- ✅ Manejo de archivos corruptos
+- ✅ Archivo inexistente (crea lista vacía)
+
+### Ejecutar Pruebas
+```bash
+# Ejecutar todas las pruebas
+mvn test
+
+# Ejecutar pruebas con reporte detallado
+mvn test -Dtest=AppTareasTest
+
+# Generar reporte de cobertura (si está configurado)
+mvn jacoco:report
+```
 
 ## Flujo de la Aplicación
 
@@ -190,30 +243,70 @@ Tarea 'Estudiar para el examen' marcada como completada
 4. **Procesamiento**: Ejecuta operación solicitada
 5. **Persistencia**: Guarda cambios al salir
 
-## Estructura de Datos
+## 📊 Estructura de Datos y Almacenamiento
 
 ### Clase Tarea
 ```java
 public class Tarea {
-    private int id;
-    private String descripcion;
-    private boolean completada;
-    private LocalDateTime fechaCreacion;
-    private LocalDateTime fechaCompletada;
+    private int id;                    // ID único de la tarea
+    private String descripcion;        // Descripción de la tarea (máx 150 chars)
+    private boolean completada;        // Estado de la tarea
+    private LocalDateTime fechaCreacion;      // Fecha de creación automática
+    private LocalDateTime fechaCompletada;    // Fecha de completado (null si pendiente)
+    
+    // Métodos principales
+    public String getFechaCreacionFormateada()    // Formato: dd/MM/yyyy HH:mm
+    public String getFechaCompletadaFormateada()  // Formato: dd/MM/yyyy HH:mm o "No completada"
 }
 ```
 
-### Almacenamiento
-- **Estructura**: ArrayList<Tarea>
-- **Búsqueda**: Streams con Predicates
-- **Orden**: Mantiene orden de inserción
+### Almacenamiento en Memoria
+- **Estructura**: `ArrayList<Tarea>` - Lista dinámica de tareas
+- **Búsqueda**: Streams API con Predicates para filtrado eficiente
+- **Orden**: Mantiene orden de inserción (FIFO)
+- **IDs**: Generación automática incremental
 
-## Características Avanzadas
+### Persistencia en Archivo
+- **Archivo**: `tareas.txt` en la raíz del proyecto
+- **Formato**: Separado por pipes (`|`) para fácil parsing
+- **Codificación**: UTF-8 para soporte de caracteres especiales
+- **Backup**: Carga automática al inicio, guardado al salir
 
-- **Fechas automáticas**: Registro de creación y completado
-- **IDs únicos**: Generación automática de IDs
-- **Filtrado dinámico**: Uso de streams para consultas
-- **Persistencia robusta**: Manejo de errores de archivo
-- **Interfaz clara**: Mensajes informativos y confirmaciones
+## 🎯 Características Avanzadas
+
+### Gestión Automática
+- **🕒 Fechas automáticas**: Registro automático de creación y completado
+- **🔢 IDs únicos**: Generación automática incremental de IDs
+- **🔄 Persistencia robusta**: Manejo completo de errores de archivo
+- **📝 Validación inteligente**: Validación en tiempo real con mensajes claros
+
+### Optimizaciones de Rendimiento
+- **⚡ Filtrado dinámico**: Uso de Streams para consultas eficientes
+- **🎯 Búsqueda optimizada**: Predicates para filtros rápidos
+- **💾 Carga lazy**: Solo carga datos cuando es necesario
+- **🔄 Operaciones atómicas**: Transacciones seguras para persistencia
+
+### Experiencia de Usuario
+- **🖥️ Interfaz intuitiva**: Menú claro con opciones numeradas
+- **✅ Confirmaciones**: Mensajes de éxito y error informativos
+- **📊 Estadísticas**: Visualización clara del estado de las tareas
+- **🎨 Formato visual**: Símbolos distintivos para tareas completadas/pendientes
+
+## 📈 Estado del Proyecto
+
+### Versión Actual
+- **Versión**: 1.0.0
+- **Estado**: ✅ Estable y funcional
+- **Última actualización**: Octubre 2025
+
+### Funcionalidades Implementadas
+- ✅ CRUD completo de tareas
+- ✅ Persistencia en archivo de texto
+- ✅ Validación robusta de entradas
+- ✅ Interfaces funcionales (Predicate, Consumer, Function)
+- ✅ Manejo de excepciones personalizadas
+- ✅ Suite completa de pruebas unitarias
+- ✅ Arquitectura modular y escalable
+- ✅ Documentación completa
 
 
